@@ -1,0 +1,174 @@
+## UI Autogen
+
+App is bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and uses [Redux](https://redux.js.org/) for State Management.
+
+### Specs
+
+The Specs can render the screens of the following types
+
+   + Create
+   + Update - fields in the create screen + plus search API call => Filters => FormData => Render
+   + View - Create Screen Fields => View Adapters for each Create Field => Search Api Call => Filters =>  FormData => Render 
+   + Search
+
+An example specs may look like this.
+  `specs = {
+    createUrl: "",
+    viewUrl: "",
+    searchUrl: "",
+    groups: [
+      {
+        label: "Group One",
+        fields: [
+          {
+            label: "First Name",
+            jsonPath : "",
+            type: "text",
+            target: "name",
+            width: "",
+            viewAdapter: ""
+          },
+          {
+            width: "",
+            jsonPath : "",
+            label: "Country",
+            type: "dropdown",
+            target: "country",
+            sourceUrl: "http://somedatasource.com/api/...",
+            options: ["India", "USA", "AUSTRALIA"],
+            dependency: [
+              {
+                target: "",
+                type: "API_CALL",
+                dataSource: "...some url with selected value"
+              },
+              {
+                target: "",
+                type: "VISIBILITY_TOGGLE",
+                toggleValue: ""
+              },
+              {
+                target: "",
+                type: "INTERACTIVITY_TOGGLE",
+                toggleValue: ""
+              }
+            ]
+          },
+          {
+            width: "",
+            label: "City",
+            type: "dropdown",
+            target: "country"
+          }
+        ]
+      }
+    ],
+    search: {
+    searchParams : [{param1 : value1, param2 : value2}]
+    groups: [
+      {
+        label: "Search Group One",
+        fields: [
+          {
+            label: "First Name",
+            type: "text",
+            target: "name",
+            width: "",
+            viewAdapter: ""
+          }
+        ]
+      }
+    ]
+  }
+ }`
+
+By default, the view adapter assumes the following. All single value fields will be translated to Labels. If this is not the desired behaviour a view adapter field can be used to override the custom implementation.  
+
+### Writing New Components
+
+Every Component should be written with its accompanying HoC(Higher Order Component).
+All the API calls, logic, event binding, redux subscriptions should happen in the HoC.  
+The presentation components should be purely dumb. It should ideally be stateless, without implementing any lifecycle methods. 
+
+
+### Core Actions
+
+Here are the main actions the framework can do.
+
+SET_SPECS
+SET_MODULE_NAME
+SET_ACTION_NAME
+HANDLE_CHANGE
+SET_DROPDOWN_DATA
+SET_FORM_DATA
+SUBMIT_FORM_DATA
+RESET_FORM_DATA
+API_CALL
+API_WAITING
+API_SUCCESS
+API_FAILED
+SET_ROUTE
+
+
+## Redux State
+`{
+  specs: {},
+  form: {},
+  dropdownData: {},
+  moduleAction: "",
+  moduleName: "",
+  moduleMaster: "",
+  loadingStatus: false
+}`
+
+
+### Extending the framework
+ The extensibility to the framework is provided by [Redux middlewares](https://redux.js.org/docs/advanced/Middleware.html).
+ 
+If there is a need to transform the formData before setting it to the redux store, we could use a middleware which taps into `SET_FORM_DATA` action.
+
+`const middleware = store => next => action => {
+  const { type } = action;
+  switch (type) {
+    case "SET_FORM_DATA":
+      const {formData,target} = action;
+      // do some transformation with the form data
+      break;
+  }
+  next(action);
+}`
+
+Similarly if the formData needs to be transformed before making a server call, we could tap into SUBMIT_FORM_DATA action.
+
+### Performance Considerations
+
++ Bundle Size - Can be reduced be using Code Splitting. Code Splitting can happen at two levels.
+
+    1) Resource Level
+        The main bundle is split into module level bundles which loads the resource only when requrired.
+        Ensures caching of smaller bundles by the browser.
+        Resource Level Code Splitting requires the create-react-app to be ejected. 
+
+    2) Dynamic imports 
+        This is Promise based import of files.
+
++ Minimizing Wasteful Renders
+   The lifecycle method componentShouldUpdate hook can be used to prevent unecessary renders or PureComponents can be 
+
+
+## Proposed Folder Structure
+
+  + src
+    + actions - Framework Actions 
+    + components - Atomic Level Components such as TextField, TextLabel, SelectField
+    + constants
+    + containers - The components can be wrapped in a container component which implements the business logic.
+    + hocs - Higer Order Components
+    + middlewares - A middleware to redux actions
+    + reducers 
+    + specs - Contains all the UI Autogen Specs 
+    + store - redux store
+    + styles
+
+ ### Future Roadmap
+   The Framework and components will be published as npm packages. 
