@@ -92,7 +92,7 @@ A spec may look like this.
  }
  ```
 
-By default, the view adapter assumes the following. All single value fields will be translated to Labels. If this is not the desired behaviour a view adapter field can be used to override the custom implementation.  
+By default, the view adapter assumes the following. All single value fields will be translated to Labels. If this is not the desired behaviour a view adapter field can be used to override the default implementation.  
 
 ### Core Actions
 
