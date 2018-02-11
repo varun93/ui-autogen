@@ -1,17 +1,25 @@
 ## UI Autogen
 
-App is bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and uses [Redux](https://redux.js.org/) for State Management.
+The framework is intended to create CRUD screens with JSON configuration.
+
+An high level overview of the UI Autogen Flow.
+
+**Specs => Specs Interpreter => Specs to View Adapter => View**
+
+The bulk of framework business logic resides in managed by [Redux](https://redux.js.org/) . 
+
+App is bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ### Specs
 
 The Specs can render the screens of the following types
 
    + Create
-   + Update - fields in the create screen + plus search API call => Filters => FormData => Render
-   + View - Create Screen Fields => View Adapters for each Create Field => Search Api Call => Filters =>  FormData => Render 
+   + Update - fields in the create screen + Search API Calls => FormData => Render
+   + View - fields in the create screen => View Adapters for each Create Field => Search Api Call => FormData => Render 
    + Search
 
-An example specs may look like this.
+A spec may look like this.
   ```
   {
     createUrl: "",
