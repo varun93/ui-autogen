@@ -12,7 +12,7 @@ App is bootstrapped with [Create React App](https://github.com/facebook/create-r
 
 ### Specs
 
-The Specs can render the screens of the following types
+The Specs can render the screens of following types
 
    + Create
    + Update - fields in the create screen + Search API Calls => FormData => Render
@@ -73,7 +73,7 @@ A spec may look like this.
       }
     ],
     search: {
-    searchParams : [{param1 : value1, param2 : value2}]
+    searchParams : [{param1 : value1, param2 : value2}],
     groups: [
       {
         label: "Search Group One",
@@ -137,7 +137,9 @@ SET_ROUTE
 ### Extending the framework
  The extensibility to the framework is provided by [Redux middlewares](https://redux.js.org/docs/advanced/Middleware.html).
  
-If there is a need to transform the formData before setting it to the redux store, we could use a middleware which taps into `SET_FORM_DATA` action.
+ Certain modules might want to **transform** the formData before it is set to the redux store and might want to a **reverse transformation** before it sends the form data back to the server. Middlewares comes in handy in those cases.
+ 
+ If there is a need to transform the formData before setting it to the redux store, we could use a middleware which taps into `SET_FORM_DATA` action.
 
 ```
 const middleware = store => next => action => {
@@ -180,6 +182,6 @@ Similarly if the formData needs to be transformed before making a server call, w
     + hocs - Higer Order Components
     + middlewares - A middleware to redux actions
     + reducers 
-    + specs - Contains all the UI Autogen Specs 
+    + specs - Contains all the Specs files. 
     + store - redux store
     + styles
