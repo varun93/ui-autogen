@@ -6,7 +6,7 @@ An high level overview of the UI Autogen Flow.
 
 **Specs => Specs Interpreter => Specs to View Adapter => View**
 
-The bulk of framework business logic resides in managed by [Redux](https://redux.js.org/) . 
+The bulk of framework business logic resides in [Redux](https://redux.js.org/) . 
 
 App is bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
