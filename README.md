@@ -12,7 +12,8 @@ The Specs can render the screens of the following types
    + Search
 
 An example specs may look like this.
-  `specs = {
+  ```
+  {
     createUrl: "",
     viewUrl: "",
     searchUrl: "",
@@ -80,7 +81,8 @@ An example specs may look like this.
       }
     ]
   }
- }`
+ }
+ ```
 
 By default, the view adapter assumes the following. All single value fields will be translated to Labels. If this is not the desired behaviour a view adapter field can be used to override the custom implementation.  
 
@@ -111,7 +113,8 @@ SET_ROUTE
 
 
 ## Redux State
-`{
+```
+{
   specs: {},
   form: {},
   dropdownData: {},
@@ -119,7 +122,8 @@ SET_ROUTE
   moduleName: "",
   moduleMaster: "",
   loadingStatus: false
-}`
+}
+```
 
 
 ### Extending the framework
@@ -127,7 +131,8 @@ SET_ROUTE
  
 If there is a need to transform the formData before setting it to the redux store, we could use a middleware which taps into `SET_FORM_DATA` action.
 
-`const middleware = store => next => action => {
+```
+const middleware = store => next => action => {
   const { type } = action;
   switch (type) {
     case "SET_FORM_DATA":
@@ -136,7 +141,8 @@ If there is a need to transform the formData before setting it to the redux stor
       break;
   }
   next(action);
-}`
+}
+```
 
 Similarly if the formData needs to be transformed before making a server call, we could tap into SUBMIT_FORM_DATA action.
 
@@ -169,6 +175,3 @@ Similarly if the formData needs to be transformed before making a server call, w
     + specs - Contains all the UI Autogen Specs 
     + store - redux store
     + styles
-
- ### Future Roadmap
-   The Framework and components will be published as npm packages. 
