@@ -94,13 +94,6 @@ A spec may look like this.
 
 By default, the view adapter assumes the following. All single value fields will be translated to Labels. If this is not the desired behaviour a view adapter field can be used to override the custom implementation.  
 
-### Writing New Components
-
-Every Component should be written with its accompanying HoC(Higher Order Component).
-All the API calls, logic, event binding, redux subscriptions should happen in the HoC.  
-The presentation components should be purely dumb. It should ideally be stateless, without implementing any lifecycle methods. 
-
-
 ### Core Actions
 
 Here are the main actions the framework can do.
@@ -132,6 +125,13 @@ SET_ROUTE
   loadingStatus: false
 }
 ```
+
+
+### Writing Components
+
+Every Component should be written with its accompanying HoC(Higher Order Component).
+All the API calls, logic, event binding, redux subscriptions should happen in the HoC.  
+The presentation components should be purely dumb. It should ideally be stateless, without implementing any lifecycle methods. 
 
 
 ### Extending the framework
